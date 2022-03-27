@@ -37,11 +37,24 @@ class Player(GameSprite):
 class Ball(GameSprite):
     def update(self):
         self.rect.y = start_y
+        self.rect.x = start_x
+        if self.rect.y < 495 and self.rect.x < 695:
+            self.rect.y += self.speed
+            self.rect.X += self.speed
+        if self.rect.y < 495 and self.rect.x > 5:
+            self.rect.y += self.speed
+            self.rect.X -= self.speed
+        if self.rect.y > 5 and self.rect.x > 5:
+            self.rect.y -= self.speed
+            self.rect.X -= self.speed
+        if self.rect.y > 5 and self.rect.x < 695:
+            self.rect.y -= self.speed
+            self.rect.X += self.speed
 
 
 
 
-class Enemy(GameSprite):
+'''class Enemy(GameSprite):
     def update(self):
         global lost
         if self.rect.y < 625:
@@ -57,7 +70,7 @@ class Enemy(GameSprite):
         else:
             self.rect.y += self.speed
 
-        keys_pressed = key.get_pressed()
+        keys_pressed = key.get_pressed()'''
 
 
 
@@ -66,22 +79,18 @@ win_w = 500
 
 
 window = display.set_mode((win_h, win_w))
-display.set_caption('Шутер')
+display.set_caption('Ping-Pong')
 
 clock = time.Clock()
-FPS = 10
+FPS = 60
 
 start_x = 350
 start_y = 250
 
 speed = 1
 
-back_g = transform.scale(image.load("galaxy.jpg"), (700, 500))
-sprite1 = Player(('rocket.png'), 350, 430, 5, 65, 65)
-sprite2 = Enemy(('asteroid.png'), 50, 100, 2, 65, 65)
-sprite3 = Enemy(('ufo.png'), 230, 100, 3, 65, 65)
-sprite4 = Enemy(('asteroid.png'), 496, 100, 1, 65, 65)
-sprite5 = Enemy(('ufo.png'), 650, 100, 4, 65, 65)
+back_g = transform.scale(image.load(""), (700, 500))
+sprite1 = Player((''), 350, 430, 5, 65, 65)
 
 
 monsters = sprite.Group()
