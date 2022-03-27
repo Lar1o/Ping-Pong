@@ -1,5 +1,5 @@
 from pygame import *
-from time import *
+from time import clock
 
 
 font.init()
@@ -30,8 +30,19 @@ class Player(GameSprite):
         if keys_pressed[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
 
-        if keys_pressed[K_DOWN] and self.rect.x < win_h - 80:
-            self.rect.x += self.speed
+        if keys_pressed[K_DOWN] and self.rect.y < 375:
+            self.rect.y += self.speed
+    def update1(self):
+        keys_pressed = key.get_pressed()
+
+        if keys_pressed[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+
+        if keys_pressed[K_s] and self.rect.y < 375 :
+            self.rect.y += self.speed
+
+
+
 
 class Ball(GameSprite):
     def update(self):
@@ -39,37 +50,20 @@ class Ball(GameSprite):
         self.rect.x = start_x
         if self.rect.y < 495 and self.rect.x < 695:
             self.rect.y += self.speed
-            self.rect.X += self.speed
+            self.rect.x += self.speed
         if self.rect.y < 495 and self.rect.x > 5:
             self.rect.y += self.speed
-            self.rect.X -= self.speed
+            self.rect.x -= self.speed
         if self.rect.y > 5 and self.rect.x > 5:
             self.rect.y -= self.speed
-            self.rect.X -= self.speed
+            self.rect.x -= self.speed
         if self.rect.y > 5 and self.rect.x < 695:
             self.rect.y -= self.speed
-            self.rect.X += self.speed
+            self.rect.x += self.speed
 
 
 
 
-'''class Enemy(GameSprite):
-    def update(self):
-        global lost
-        if self.rect.y < 625:
-            self.direction = 'down'
-        
-        if self.rect.y > 626:
-            self.rect.y = 0
-            self.rect.x = randint(50, 645)
-            self.speed = randint(1, 4)
-            lost = lost + 1
-        if self.direction == 'up':
-            self.rect.y -= self.speed
-        else:
-            self.rect.y += self.speed
-
-        keys_pressed = key.get_pressed()'''
 
 
 
@@ -90,7 +84,7 @@ speed = 1
 
 back_g = transform.scale(image.load("fon.png"), (700, 500))
 sprite1 = Player(('roket.png'), 5, 350, 2, 150, 65)
-sprite1 = Player(('roket.png'), 630, 350, 2, 150, 65)
+sprite2 = Player(('roket.png'), 630, 350, 2, 150, 65)
 ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70)
 
 
@@ -110,12 +104,12 @@ while game:
         sprite1.reset()
         sprite1.update()
         sprite2.reset()
-        sprite2.update()
+        sprite2.update1()
         ball.reset()
         ball.update()
 
 
-        if sprite.spritecollide(sprite1, ball) or sprite.spritecollide(sprite1, ball):
+        if sprite.collide_rect(sprite1, ball) or sprite.collide_rect(sprite2, ball):
             speed *=-1
             
         if ball.rect.y == 0 or ball.rect.y == 500:
