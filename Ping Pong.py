@@ -1,5 +1,4 @@
 from pygame import *
-from random import randint
 from time import *
 
 
@@ -89,17 +88,11 @@ start_y = 250
 
 speed = 1
 
-back_g = transform.scale(image.load(""), (700, 500))
-sprite1 = Player((''), 350, 430, 5, 65, 65)
+back_g = transform.scale(image.load("fon.png"), (700, 500))
+sprite1 = Player(('roket.png'), 5, 350, 2, 150, 65)
+sprite1 = Player(('roket.png'), 630, 350, 2, 150, 65)
+ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70)
 
-
-monsters = sprite.Group()
-monsters.add(sprite2)
-monsters.add(sprite3)
-monsters.add(sprite4)
-monsters.add(sprite5)
-
-bullets = sprite.Group()
 
 finish = False
 
@@ -112,38 +105,36 @@ while game:
             
 
     if finish != True:
-        
-        schet1 = font.render('Пропущено: ' + str(lost), True, (225, 20, 150))
-        schet2 = font.render('Счет: ' + str(sb), True, (225, 20, 150))
-
-
+    
         window.blit(back_g, (0, 0))
         sprite1.reset()
         sprite1.update()
-        monsters.draw(window)
-        monsters.update()
-        sprite2.retry()
-        sprite3.retry()
-        sprite1.fire()
-        bullets.draw(window)
-        bullets.update()
+        sprite2.reset()
+        sprite2.update()
+        ball.reset()
+        ball.update()
 
-        if sprite.spritecollide(sprite1, monsters, False, False):
-            window.blit(lose, (200, 200))
-            finish = True
-            
 
-        if sprite.groupcollide(monsters, bullets, True, True):
-            sb = sb + 1
+        if sprite.spritecollide(sprite1, ball) or sprite.spritecollide(sprite1, ball):
+            speed *=-1
             
-            
-        if sb == 11:
+        if ball.rect.y == 0 or ball.rect.y == 500:
+            speed *=-1
+
+        if ball.rect.x == 0:
             window.blit(win, (200, 200))
             finish = True
+        if ball.rect.x == 700:
+            window.blit(lose, (200, 200))
+            finish = True
 
 
-        window.blit(schet2, (5, 5))
-        window.blit(schet1, (5, 35))
+
+
+
+
+
+
         
         
 
