@@ -84,10 +84,10 @@ speed = 4
 speed_x = 2
 speed_y = 2
 
-back_g = transform.scale(image.load("fon.png"), (700, 500))
-sprite1 = Player(('roket.png'), 5, 350, 4, 150, 65)
-sprite2 = Player(('roket.png'), 630, 350, 4, 150, 65)
-ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70, speed_x, speed_y)
+back_g = transform.scale(image.load("images.jpg"), (700, 500))
+sprite1 = Player(('килькоров.jpg'), 5, 350, 4, 150, 65)
+sprite2 = Player(('килькоров.jpg'), 630, 350, 4, 150, 65)
+ball = Ball(('ytuh.jpg'), start_x, start_y, speed, 70, 70, speed_x, speed_y)
 
 
 finish = False

@@ -10,11 +10,6 @@ lose = font.render('YOU LOSE', True, (225, 0, 0))
 
 lost = 0
 sb = 0
-#schet1 = font.render('Пропущено: ' + str(lost), True, (225, 20, 150))
-#schet2 = font.render('Счет: ' + str(sb), True, (225, 20, 150))
-
-#x = randint(50, 645)
-#speed = randint(1,4)
 
 
 class GameSprite(sprite.Sprite):
@@ -64,7 +59,23 @@ class Bullet(GameSprite):
             self.rect.y -= self.speed
         else:
             self.rect.y += self.speed'''
-
+def update(self):
+        self.rect.y = start_y
+        self.rect.x = start_x
+        self.direction = 'down'
+        self.direction = 'right'
+        if self.rect.y > 5 and self.rect.x > 5:
+            self.direction = 'down'
+            self.direction = 'right'
+        if self.rect.y > 5 and self.rect.x > 694:
+            self.direction = 'down'
+            self.direction = 'left'
+        if self.rect.y > 494 and self.rect.x > 695:
+            self.direction = 'up'
+            self.direction = 'left'
+        if self.rect.y > 495 and self.rect.x > 5:
+            self.direction = 'up'
+            self.direction = 'right'
 
 class Enemy(GameSprite):
     def update(self):
