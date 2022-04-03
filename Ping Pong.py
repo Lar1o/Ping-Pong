@@ -8,7 +8,9 @@ win = font.render('WIN GAMER 2', True, (255, 215, 0))
 lose = font.render('WIN GAMER 1', True, (255, 215, 0))
 
 
+
 class GameSprite(sprite.Sprite):
+
     def __init__(self, sprite1_image, sprite1_x,  sprite1_y, sprite1_speed, sprite1_vesota, sprite1_dlinna):
         super().__init__()
         self.image = transform.scale(image.load(sprite1_image), (sprite1_dlinna, sprite1_vesota))
@@ -23,7 +25,9 @@ class GameSprite(sprite.Sprite):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
 
+
 class Player(GameSprite):
+
     def update(self):    
         keys_pressed = key.get_pressed()
 
@@ -32,6 +36,7 @@ class Player(GameSprite):
 
         if keys_pressed[K_SPACE] and self.rect.y < 375:
             self.rect.y += self.speed
+
     def update1(self):
         keys_pressed = key.get_pressed()
 
@@ -45,21 +50,19 @@ class Player(GameSprite):
 
 
 class Ball(GameSprite):
+
     def __init__ (self, sprite1_image, sprite1_x,  sprite1_y, sprite1_speed, sprite1_vesota, sprite1_dlinna, sprite1_speed_x, sprite1_speed_y):
         super().__init__(sprite1_image, sprite1_x,  sprite1_y, sprite1_speed, sprite1_vesota, sprite1_dlinna)
         self.speed_y = sprite1_speed_y
         self.speed_x = sprite1_speed_x
+
     def update(self):
         self.rect.y -= self.speed_y
         self.rect.x += self.speed_x
         if self.rect.y > 495:
-            self.speed_y *= -1
-        
+            self.speed_y *= -1        
         if self.rect.y < 5:
             self.speed_y *= -1
-
-
-
 
 
 
@@ -82,8 +85,8 @@ speed_x = 2
 speed_y = 2
 
 back_g = transform.scale(image.load("fon.png"), (700, 500))
-sprite1 = Player(('roket.png'), 5, 350, 2, 150, 65)
-sprite2 = Player(('roket.png'), 630, 350, 2, 150, 65)
+sprite1 = Player(('roket.png'), 5, 350, 4, 150, 65)
+sprite2 = Player(('roket.png'), 630, 350, 4, 150, 65)
 ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70, speed_x, speed_y)
 
 
@@ -91,6 +94,8 @@ finish = False
 
 
 game = True
+
+
 while game:
     for e in event.get():
         if e.type == QUIT:
@@ -120,16 +125,6 @@ while game:
         if ball.rect.x == 700:
             window.blit(lose, (200, 200))
             finish = True
-
-
-
-
-
-
-
-
-        
-        
 
 
     display.update()
