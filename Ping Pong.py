@@ -4,8 +4,8 @@ from time import clock
 
 font.init()
 font = font.SysFont('Arial', 40)
-win = font.render('YOU WIN', True, (255, 215, 0))
-lose = font.render('YOU LOSE', True, (225, 0, 0))
+win = font.render('WIN GAMER 2', True, (255, 215, 0))
+lose = font.render('WIN GAMER 1', True, (255, 215, 0))
 
 
 class GameSprite(sprite.Sprite):
@@ -27,41 +27,36 @@ class Player(GameSprite):
     def update(self):    
         keys_pressed = key.get_pressed()
 
-        if keys_pressed[K_UP] and self.rect.y > 5:
+        if keys_pressed[K_w] and self.rect.y > 5:
             self.rect.y -= self.speed
 
-        if keys_pressed[K_DOWN] and self.rect.y < 375:
+        if keys_pressed[K_SPACE] and self.rect.y < 375:
             self.rect.y += self.speed
     def update1(self):
         keys_pressed = key.get_pressed()
 
-        if keys_pressed[K_w] and self.rect.y > 5:
+        if keys_pressed[K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
 
-        if keys_pressed[K_s] and self.rect.y < 375 :
+        if keys_pressed[K_DOWN] and self.rect.y < 375 :
             self.rect.y += self.speed
 
 
 
 
 class Ball(GameSprite):
+    def __init__ (self, sprite1_image, sprite1_x,  sprite1_y, sprite1_speed, sprite1_vesota, sprite1_dlinna, sprite1_speed_x, sprite1_speed_y):
+        super().__init__(sprite1_image, sprite1_x,  sprite1_y, sprite1_speed, sprite1_vesota, sprite1_dlinna)
+        self.speed_y = sprite1_speed_y
+        self.speed_x = sprite1_speed_x
     def update(self):
-        self.rect.y = start_y
-        self.rect.x = start_x
-        self.rect.x += self.speed
-        self.rect.y += self.speed
-        if self.rect.y < 495 and self.rect.x < 695:
-            self.rect.y += self.speed
-            self.rect.x += self.speed
-        if self.rect.y < 495 and self.rect.x > 5:
-            self.rect.y += self.speed
-            self.rect.x -= self.speed
-        if self.rect.y > 5 and self.rect.x > 5:
-            self.rect.y -= self.speed
-            self.rect.x -= self.speed
-        if self.rect.y > 5 and self.rect.x < 695:
-            self.rect.y -= self.speed
-            self.rect.x += self.speed
+        self.rect.y -= self.speed_y
+        self.rect.x += self.speed_x
+        if self.rect.y > 495:
+            self.speed_y *= -1
+        
+        if self.rect.y < 5:
+            self.speed_y *= -1
 
 
 
@@ -82,12 +77,14 @@ FPS = 60
 start_x = 350
 start_y = 250
 
-speed = 2
+speed = 4
+speed_x = 2
+speed_y = 2
 
 back_g = transform.scale(image.load("fon.png"), (700, 500))
 sprite1 = Player(('roket.png'), 5, 350, 2, 150, 65)
 sprite2 = Player(('roket.png'), 630, 350, 2, 150, 65)
-ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70)
+ball = Ball(('ball.png'), start_x, start_y, speed, 70, 70, speed_x, speed_y)
 
 
 finish = False
@@ -112,10 +109,10 @@ while game:
 
 
         if sprite.collide_rect(sprite1, ball) or sprite.collide_rect(sprite2, ball):
-            speed *=-1
+            ball.speed_x *=-1
             
         if ball.rect.y == 0 or ball.rect.y == 500:
-            speed *=-1
+            ball.speed_x *=-1
 
         if ball.rect.x == 0:
             window.blit(win, (200, 200))
