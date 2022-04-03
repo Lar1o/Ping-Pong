@@ -48,6 +48,8 @@ class Ball(GameSprite):
     def update(self):
         self.rect.y = start_y
         self.rect.x = start_x
+        self.rect.x += self.speed
+        self.rect.y += self.speed
         if self.rect.y < 495 and self.rect.x < 695:
             self.rect.y += self.speed
             self.rect.x += self.speed
@@ -80,7 +82,7 @@ FPS = 60
 start_x = 350
 start_y = 250
 
-speed = 1
+speed = 2
 
 back_g = transform.scale(image.load("fon.png"), (700, 500))
 sprite1 = Player(('roket.png'), 5, 350, 2, 150, 65)
